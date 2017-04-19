@@ -20,7 +20,21 @@ input {
 form {
   display: inline-block;
 }
-
+.pizzaLine {
+  margin-top: 125px;
+}
+#movingPizzas {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.3;
+}
+#movingPizzas .pizza {
+  height: 100px;
+  margin-left: 30%;
+}
 .centered {
   text-align: center;
 }
@@ -32,7 +46,7 @@ form {
 .mover {
   position: fixed;
   width: 256px;
-  z-index: -1;
+  z-index: -2;
 }
 
 .randomPizzaContainer {
