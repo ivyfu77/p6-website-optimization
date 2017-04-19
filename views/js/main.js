@@ -418,9 +418,8 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-   // 返回不同的尺寸以将披萨元素由一个尺寸改成另一个尺寸。由changePizzaSlices(size)函数调用
-
-    // 将值转成百分比宽度
+  // 返回不同的尺寸以将披萨元素由一个尺寸改成另一个尺寸。由changePizzaSlices(size)函数调用
+  /* Ivy: 删除原determineDx函数，简化为直接由size取得百分比，取消由此引起的对Layout的引用 */
   function sizeSwitcher (size) {
     switch(size) {
       case "1":
@@ -436,8 +435,13 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
+    // Ivy: 取得新size的百分比
     var dx = sizeSwitcher(size);
+
+    //Ivy: 减少代码重复，首先取得所有的pizza array
     var objs = document.querySelectorAll(".randomPizzaContainer");
+
+    // Ivy: 在循环中修改style时避免先调用Layout引起FSL
     for (var i = 0; i < objs.length; i++) {
       objs[i].style.width = dx*100 + '%';
     }
@@ -488,12 +492,8 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
-  var bodyScrollTop = document.body.scrollTop;
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((bodyScrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-  }
+  // Ivy: 考虑到页面过于花俏而且代价昂贵，这里取消了披萨滑窗代码，
+  //      用pizza.html中的fixed position #pizzasBackground来取代背景
 
   // 再次使用User Timing API。这很值得学习
   // 能够很容易地自定义测量维度
@@ -508,7 +508,7 @@ function updatePositions() {
 // 在页面滚动时运行updatePositions函数
 window.addEventListener('scroll', updatePositions);
 
-// 当页面加载时生成披萨滑窗
+// 取消披萨滑窗效果
 //document.addEventListener('DOMContentLoaded', function() {
   // var cols = 8;
   // var s = 256;

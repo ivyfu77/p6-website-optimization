@@ -7,6 +7,9 @@
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
 
+    <!-- Ivy: Delete online fonts -->
+
+    <!-- Ivy: add 'media' setting for print.css, avoid parsing blocking -->
     <link href="css/print.css" rel="stylesheet" media="print">
 
     <script>
@@ -17,8 +20,10 @@
       ga('create', 'UA-XXXX-Y');
       ga('send', 'pageview');
     </script>
+    <!-- Ivy: Add 'async' prop for loading analystics.js, avoid parsing blocking -->
     <script src="http://www.google-analytics.com/analytics.js" async></script>
     <script async src="js/perfmatters.js"></script>
+    <!-- Ivy: Add inner style to minimize the size of style.css -->
     <style>
       html {
         font-size: 100%;
@@ -62,6 +67,7 @@
       </div>
 
       <div class="content">
+      <!-- Ivy: Resize the size of imgs, use local server img instead of online img -->
         <ul>
           <li>
             <img src="img/item1.jpg">
@@ -93,6 +99,7 @@
         <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
       </footer>
     </div>
+    <!-- Ivy: Move loading style.css to the bottom, avoid rendering blocking -->
     <link href="css/style.css" rel="stylesheet">
   </body>
 </html>

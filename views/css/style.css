@@ -23,7 +23,7 @@ form {
 .pizzaLine {
   margin-top: 125px;
 }
-#movingPizzas {
+#pizzasBackground {
   position: fixed;
   top: 0px;
   left: 0;
@@ -31,7 +31,7 @@ form {
   overflow: hidden;
   opacity: 0.3;
 }
-#movingPizzas .pizza {
+#pizzasBackground .pizza {
   height: 100px;
   margin-left: 30%;
 }
