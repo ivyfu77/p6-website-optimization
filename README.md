@@ -8,7 +8,7 @@ Try my best to increase the loading and response speed. Make the page rendering 
 
 ### What Have Been Done
 
-####Part 1: Optimize index.html (PageSpeed Insights)
+#### Part 1: Optimize index.html (PageSpeed Insights)
 
 1. Compress the image size of pizzeria.jpg (From 2.3M to 4K) 
 2. Avoid using online fonts
@@ -18,7 +18,19 @@ Try my best to increase the loading and response speed. Make the page rendering 
 
 ![PageSpeed Result](https://ivyfu77.github.io/p6-website-optimization/result/PageSpeed-Result.png)
 
-####Part 2: Optimize pizza.html (FPS)
+#### Part 2: Optimize pizza.html (FPS)
 1. Delete unnecessary and expensive 'moving pizzas' background when scroll the screen, change to fixed position background
 2. Optimize pizza resize control, avoid use Layout before reset style in a loop.
 3. Compress the top image's size (From 2.4M to 139K)
+
+
+### How to Check
+
+#### Part 1: Optimize index.html (PageSpeed Insights)
+
+1. Open [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) 
+2. Paste the [Link](https://ivyfu77.github.io/p6-website-optimization/), click 'Analyze' to check the optimizing result.
+
+#### Part 2: Optimize pizza.html (FPS)
+1. Open the live [Link](https://ivyfu77.github.io/p6-website-optimization/views/pizza.html)
+2. Use DevTools to check the FPS when scroll the screen, change the size setting.
