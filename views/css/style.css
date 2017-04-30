@@ -23,18 +23,6 @@ form {
 .pizzaLine {
   margin-top: 125px;
 }
-#pizzasBackground {
-  position: fixed;
-  top: 0px;
-  left: 0;
-  z-index: -1;
-  overflow: hidden;
-  opacity: 0.3;
-}
-#pizzasBackground .pizza {
-  height: 100px;
-  margin-left: 30%;
-}
 .centered {
   text-align: center;
 }

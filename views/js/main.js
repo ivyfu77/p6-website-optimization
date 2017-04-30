@@ -403,13 +403,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -438,8 +438,8 @@ var resizePizzas = function(size) {
     // Ivy: 取得新size的百分比
     var dx = sizeSwitcher(size);
 
-    //Ivy: 减少代码重复，首先取得所有的pizza array
-    var objs = document.querySelectorAll(".randomPizzaContainer");
+    //Ivy: 减少代码重复，首先取得所有的pizza array, 并用getElementsByClassName取代querySelectorAll
+    var objs = document.getElementsByClassName("randomPizzaContainer");
 
     // Ivy: 在循环中修改style时避免先调用Layout引起FSL
     for (var i = 0; i < objs.length; i++) {
@@ -492,8 +492,19 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  // Ivy: 考虑到页面过于花俏而且代价昂贵，这里取消了披萨滑窗代码，
-  //      用pizza.html中的fixed position #pizzasBackground来取代背景
+  //Ivy: Using getElementsByClassName replace querySelectorAll 
+  var items = document.getElementsByClassName('mover');
+
+  //Ivy: Optimize the position-change-loop
+  var bodyScrollTop = document.body.scrollTop;
+  var moverInt = bodyScrollTop / 1250;
+  //---Ivy: Define length to avoid getting items.length during each loop
+  var length = items.length;
+  for (var i = 0; i < length; i++) {
+    //---Ivy: Get the basicLeft first than change the style
+    var phase = Math.sin(moverInt + (i % 5)) * 100 + items[i].basicLeft;
+    items[i].style.left =  phase + 'px';
+  }
 
   // 再次使用User Timing API。这很值得学习
   // 能够很容易地自定义测量维度
@@ -508,19 +519,27 @@ function updatePositions() {
 // 在页面滚动时运行updatePositions函数
 window.addEventListener('scroll', updatePositions);
 
-取消披萨滑窗效果
+//披萨滑窗效果
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
-    elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+
+  //Ivy: Use window's innerHeight to control the times of loop
+  var screenHeight = window.innerHeight;
+  for (var i = 0; i < 50; i++) {
+    var top = Math.floor(i / cols) * s;
+    if (top < screenHeight) {
+      var elem = document.createElement('img');
+      elem.className = 'mover';
+      elem.src = "images/pizza.png";
+      elem.style.height = "100px";
+      elem.style.width = "73.333px";
+      elem.basicLeft = (i % cols) * s;
+      elem.style.top = top + 'px';
+      document.getElementById("movingPizzas1").appendChild(elem);
+    }else {
+      break; //Ivy: When top is higher than the screen, stop the loop
+    }
   }
   updatePositions();
 });
