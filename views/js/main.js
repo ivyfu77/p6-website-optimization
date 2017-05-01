@@ -524,22 +524,23 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
 
-  //Ivy: Use window's innerHeight to control the times of loop
+  //Ivy: Use 'innerHeight/s * cols' to get the nums of background-pizza
   var screenHeight = window.innerHeight;
-  for (var i = 0; i < 50; i++) {
-    var top = Math.floor(i / cols) * s;
-    if (top < screenHeight) {
-      var elem = document.createElement('img');
-      elem.className = 'mover';
-      elem.src = "images/pizza.png";
-      elem.style.height = "100px";
-      elem.style.width = "73.333px";
-      elem.basicLeft = (i % cols) * s;
-      elem.style.top = top + 'px';
-      document.getElementById("movingPizzas1").appendChild(elem);
-    }else {
-      break; //Ivy: When top is higher than the screen, stop the loop
+  var pizzaNum = Math.ceil(screenHeight/s) * cols;
+  var top = 0;
+  for (var i = 0; i < pizzaNum; i++) {
+    if (i >= cols && (i%cols) == 0) {
+      top += 256; //Ivy: Only recalculate top when it's the first pizza of each line
     }
+    var elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizza.png";
+    elem.style.height = "100px";
+    elem.style.width = "73.333px";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = top + 'px';
+    document.getElementById("movingPizzas1").appendChild(elem);
+
   }
   updatePositions();
 });
